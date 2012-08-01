@@ -25,10 +25,12 @@ int main(int argc, char** argv){
 
 void howManyFactors(unsigned long long number, int* count){
 	int iterator;
-
-	for(iterator = 1; iterator <= number; ++iterator){
+	int half = number / 2;
+	for(iterator = 1; iterator <= half; ++iterator){
 		if(number % iterator == 0){
 			++(*count);
 		}
 	}
+
+	++(*count);
 }
