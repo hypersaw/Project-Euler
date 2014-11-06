@@ -10,9 +10,9 @@
 
 unsigned long long TraverseGrid(int x, int y, int fast);
 unsigned long long TraverseNodeSlow(unsigned int colSize, unsigned int node, unsigned int dest);
-double TraverseNodeFast(unsigned int colSize, unsigned int node, unsigned int dest);
+unsigned long long TraverseNodeFast(unsigned int colSize, unsigned int node, unsigned int dest);
 
-int ** Nodes;
+unsigned long long ** Nodes;
 
 int main(int argc, char** argv)
 {
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 	}
 
 	printf("A %dx%d grid has...%llu paths.\n",GridSize[0],GridSize[1],TraverseGrid(GridSize[0],GridSize[1],1));
-	printf("A %dx%d grid has...%llu paths.\n",GridSize[0],GridSize[1],TraverseGrid(GridSize[0],GridSize[1],0));
+	//printf("A %dx%d grid has...%Lf paths.\n",GridSize[0],GridSize[1],TraverseGrid(GridSize[0],GridSize[1],0));
 
 	return 0;
 }
@@ -41,13 +41,13 @@ unsigned long long TraverseGrid(int sizeX, int sizeY, int fast)
 	int nodeCount = (sizeX+1)*(sizeY+1);
 	if(fast)
 	{
-		Nodes = new int * [nodeCount];
+		Nodes = new unsigned long long * [nodeCount];
 		for(int i = 0; i < nodeCount; ++i)
 		{
-			Nodes[i] = new int[2] {};
+			Nodes[i] = new unsigned long long[2] {};
 		}
 
-		long long paths = TraverseNodeFast(sizeX+1, 0, nodeCount-1);
+		unsigned long long paths = TraverseNodeFast(sizeX+1, 0, nodeCount-1);
 
 		for(int i = 0; i < sizeX; ++i)
 		{
@@ -69,7 +69,7 @@ unsigned long long TraverseNodeSlow(unsigned int x, unsigned int node, unsigned 
 		return 1;
 	}
 
-	long long leftPaths = 0, rightPaths = 0;
+	unsigned long long leftPaths = 0, rightPaths = 0;
 	// Move Right
 	if((node+1) % x != 0) leftPaths = TraverseNodeSlow(x, node+1, dest);
 	// Move Down
@@ -78,7 +78,7 @@ unsigned long long TraverseNodeSlow(unsigned int x, unsigned int node, unsigned 
 	return leftPaths+rightPaths;
 }
 
-double TraverseNodeFast(unsigned int x, unsigned int node, unsigned int dest)
+unsigned long long TraverseNodeFast(unsigned int x, unsigned int node, unsigned int dest)
 {
 	if(node == dest) return 1;
 
